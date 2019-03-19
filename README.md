@@ -1,12 +1,6 @@
 # EnumWithOther
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/enum_with_other`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'enum_with_other'
@@ -14,25 +8,54 @@ gem 'enum_with_other'
 
 And then execute:
 
-    $ bundle
+  $ bundle
 
 Or install it yourself as:
 
-    $ gem install enum_with_other
+  $ gem install enum_with_other
 
 ## Usage
 
-TODO: Write usage instructions here
+In Rails 5.x, this gem support enum column with free description form with validation.
+If enum column is selected 'other', other_column(string) should be present, while enum column is not selected as 'other', other_column should be blank.
+This gem can be used with enum_help(internationalization of enums).
 
-## Development
+In migration,
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+create_table :hoge do |t|
+  t.integer :reason
+  t.string  :other_reason
+end
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+In model, 
 
-## Contributing
+```ruby
+class Hoge < ApplicationRecord
+  enum_with_other reason: {
+    foo: 10,
+    bar: 20,
+    other_reason: 100
+  }
+end
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/enum_with_other. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+In view,
+
+```erb
+<div>
+  <%=
+    form.select :reason,
+    Hoge.reasons.keys    
+  %>
+</div>
+<div>
+  <%=
+    form.text_field :other_reason
+  %>
+</div>
+```
 
 ## License
 
