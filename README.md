@@ -8,11 +8,15 @@ gem 'enum_with_other'
 
 And then execute:
 
-  $ bundle
+```
+bundle
+```
 
 Or install it yourself as:
 
-  $ gem install enum_with_other
+```
+gem install enum_with_other
+```
 
 ## Usage
 
