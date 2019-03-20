@@ -14,4 +14,14 @@ module EnumWithOther
       "enum \"#{@message}\" does not exist"
     end
   end
+
+  class NoColumnError < StandardError
+    def initialize(message)
+      @message = message
+    end
+
+    def message
+      "column \"#{@message}\" does not exist"
+    end
+  end
 end

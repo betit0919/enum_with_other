@@ -9,7 +9,7 @@ module EnumWithOther
         other_enum_name = "other_#{name}"
         raise ParameterError, other_enum_name unless value.with_indifferent_access.key?(other_enum_name)
 
-        validates other_enum_name, enum_with_other: true
+        validates other_enum_name, "EnumWithOther::EnumWithOther" => true
       end
       enum(definitions)
     end
